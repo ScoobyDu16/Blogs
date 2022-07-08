@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= article.title %></title>
+</head>
+<body>
+    <div>
+        <div style="margin: 1rem; padding:1rem; border: 1px solid black;">
+            <h2><%= article.title%></h2>
+            <span style="color: gray;"><%= article.createdAt.toLocaleDateString() %></span>
+            <p><%= article.description %></p>
+            <h5><%= article.user.name.toUpperCase()%></h5>
+            <% if(article.user.id===currentUser.id) { %>
+                <form style="display: inline;" action="/articles/<%= article.id %>?_method=DELETE" method="POST">
+                    <button type="submit">Delete</button>
+                </form>
+                <a href="/articles/edit/<%= article.id %>">Edit</a>
+            <% } %>
+        </div>
+        <div style="margin: 1rem; padding:1rem; border: 1px solid black;">
+            <form action="/articles/<%= article.id %>/addComment" method="POST">
+                <input type="text" id="comment" name="comment" placeholder="Comment">
+                <button type="submit">Add Comment</button>
+            </form>
+        </div>
+        <div>
+            <% article.comments.map(comment => { %>
+                <div style="margin:1rem; padding:0.4rem 1rem; border: 1px solid black; max-width: fit-content; max-height: fit-content; border-radius: 15px;">
+                    <p style="padding: 0; margin:0;"><%= comment.text %></p>
+                    <h5 style="text-align: right; padding: 0; margin:0.2rem;">- <%= comment.userName %></h5>
+                    <% if(currentUser.id==comment.userId || article.user.id==currentUser.id){ %>
+                        <form action="/articles/<%= article.id %>/<%= comment.id %>?_method=DELETE" method="POST">
+                            <button type="submit">Delete</button>
+                        </form>
+                    <% } %>
+                </div>
+            <% }) %>
+        </div>
+        <a href="/articles">All Articles</a>
+        <form action="/auth/logout?_method=DELETE" method="POST">
+            <button type="submit">Logout</button>
+        </form>
+    </div>
+</body>
+</html>

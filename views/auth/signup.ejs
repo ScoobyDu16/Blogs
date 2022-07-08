@@ -1,0 +1,25 @@
+<h1>Signup</h1>
+<form action="/auth/signup" method="POST">
+    <label for="name">Name</label>
+    <input type="text" id="name" placeholder="Name" name="name">
+    <label for="email">Email</label>
+    <input type="email" id="email" placeholder="Email" name="email">
+    <label for="password">Password</label>
+    <input type="password" id="password" placeholder="Password" name="password">
+    <button type="submit">Signup</button>
+</form>
+<table style="border: 1px solid black; margin: 1rem 0;">
+    <tr>
+        <th style="border: 1px solid black; padding:0.5rem;">Username</th>
+        <th style="border: 1px solid black; padding:0.5rem;">Email</th>
+        <!-- <th style="border: 1px solid black; padding:0.5rem;">Password</th> -->
+    </tr>
+    <% users.map(user => { %>
+        <tr>
+            <td style="border: 1px solid black; padding:0.5rem;"><%= user.name %></td>
+            <td style="border: 1px solid black; padding:0.5rem;"><%= user.email %></td>
+            <!-- <td style="border: 1px solid black; padding:0.5rem;"><%= user.password %></td> -->
+        </tr>
+    <% }) %>
+</table>
+<a href="/auth/login">Login</a>
