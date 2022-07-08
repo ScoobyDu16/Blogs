@@ -70,7 +70,8 @@ initialisePassport(
 )
 
 app.get('/', (req, res) =>{
-    res.redirect('/auth/signup');
+    res.send('Heroku blogs...');
+    // res.redirect('/auth/signup');
 })
 
 mongoose.connection.once('open', () =>{
